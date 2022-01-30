@@ -5,19 +5,19 @@ export const NavBar = () => {
     return (
         <nav className={classes.nav}>
             <div className={classes.item}>
-                <NavLink to='/profile'>Profile</NavLink>
+                <NavLink to='/profile' className = { nav => nav.isActive ? classes.activeLink : classes.item }>Profile</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to='/dialogs'>Dialogs</NavLink>
+                <NavLink to='/dialogs' className = { nav => nav.isActive ? classes.activeLink : classes.item }>Dialogs</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to='news'>News</NavLink>
+                <NavLink to='news' className = { nav => nav.isActive ? classes.activeLink : classes.item }>News</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to='/music'>Music</NavLink>
+                <NavLink to='/music' className = { nav => nav.isActive ? classes.activeLink : classes.item }>Music</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to='/settings'>Settings</NavLink>
+                <NavLink to='/settings' className = { nav => nav.isActive ? classes.activeLink : classes.item }>Settings</NavLink>
             </div>
         </nav>
     );
