@@ -14,7 +14,7 @@ const MyPosts = (props:MyPostPropsType) => {
                 <h3>My post</h3>
                 <div>
                     <div>
-                        <textarea></textarea>
+                        <textarea>Type your post text</textarea>
                     </div>
                     <div>
                         <button>add Post</button>
