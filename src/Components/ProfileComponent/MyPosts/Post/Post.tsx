@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from './Post.module.css'
 export type PostPropsType = {
-    avaAddress: string
     postText: string
+    avaAddress: string
     userName: string
     likesCount: number
 }

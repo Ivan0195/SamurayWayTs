@@ -1,3 +1,6 @@
+import {PostPropsType} from "../Components/ProfileComponent/MyPosts/Post/Post";
+import {rerenderEntireTree} from "../index";
+
 export let state = {
     users: [
         {id: '1', userName: 'Viktor Tsoy'},
@@ -16,7 +19,8 @@ export let state = {
         {
             postText: 'Hello! I miss you!',
             avaAddress: 'https://b1.culture.ru/c/735787.jpg',
-            userName: 'Viktor Tsoy', likesCount: 22
+            userName: 'Viktor Tsoy',
+            likesCount: 22
         },
         {
             postText: "Hey, let's go fishing next weekend ",
@@ -49,4 +53,15 @@ export let state = {
             likesCount: 33
         }
     ]
+}
+
+export const addPost = (postMassage:string) => {
+    let newPost: PostPropsType = {
+        postText: postMassage,
+        avaAddress: 'https://b1.culture.ru/c/735787.jpg',
+        userName:'Viktor Tsoy',
+        likesCount:0
+        }
+        state.posts.push(newPost)
+    rerenderEntireTree()
 }

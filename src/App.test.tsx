@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import {addPost} from "./Redux/State";
 
 const users = [
   {id:'1', userName:'Viktor Tsoy'},
@@ -56,7 +57,7 @@ const posts = [
 ]
 
 test.skip('renders learn react link', () => {
-  render(<App forDialogItem={users} forMessages={messages} forMyPosts={posts}/>);
+  render(<App forDialogItem={users} forMessages={messages} forMyPosts={posts} addPostForMyPosts={addPost}/>);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });
