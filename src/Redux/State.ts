@@ -1,5 +1,29 @@
 import {PostPropsType} from "../Components/ProfileComponent/MyPosts/Post/Post";
-import {rerenderEntireTree} from "../index";
+import {rerenderEntireTree} from "../render";
+
+type UsersType = {
+    id: string
+    userName:string
+}
+
+type MessagesType = {
+    id: string
+    message: string
+}
+
+type PostsType = {
+    postText: string
+    avaAddress: string
+    userName: string
+    likesCount: number
+
+}
+
+export type StateType = {
+    users: Array<UsersType>
+    messages: Array<MessagesType>
+    posts: Array<PostsType>
+}
 
 export let state = {
     users: [
@@ -63,5 +87,5 @@ export const addPost = (postMassage:string) => {
         likesCount:0
         }
         state.posts.push(newPost)
-    rerenderEntireTree()
+    rerenderEntireTree(state)
 }

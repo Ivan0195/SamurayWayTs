@@ -15,6 +15,9 @@ const MyPosts = (props:MyPostPropsType) => {
     const addPost = () => {
         let text = newPostElement.current ? newPostElement.current.value : '';
       props.addPostForMyPosts(text)
+        if (newPostElement.current != undefined) {
+            newPostElement.current.value = ''
+        }
     }
 
     return (
