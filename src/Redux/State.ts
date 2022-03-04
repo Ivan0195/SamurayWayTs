@@ -1,5 +1,6 @@
 import {PostPropsType} from "../Components/ProfileComponent/MyPosts/Post/Post";
-import {rerenderEntireTree} from "../render";
+
+let rerenderEntireTree = (state:StateType)=> {alert('заглушка')}
 
 type UsersType = {
     id: string
@@ -98,4 +99,8 @@ export let state = {
 export const updateNewPostText = (newText:string) => {
     state.newPostText = newText
     rerenderEntireTree(state)
+}
+
+export const subscribe = (observer: (state: StateType) => void) => {
+ rerenderEntireTree = observer
 }
