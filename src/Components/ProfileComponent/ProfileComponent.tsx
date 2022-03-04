@@ -1,20 +1,26 @@
 import React from 'react';
 import classes from './ProfileComponent.module.css'
 import MyPosts from "./MyPosts/MyPosts";
-import { ProfileInfo } from './ProfileInfo/ProfileInfo';
+import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {PostPropsType} from "./MyPosts/Post/Post";
 import {addPost} from "../../Redux/State";
 
-export type ProfileComponentPropsType ={
-   forMyPosts: Array<PostPropsType>
-   addPostForMyPosts: (postMessage:string)=>void
+export type ProfileComponentPropsType = {
+    forMyPosts: Array<PostPropsType>
+    addPostForMyPosts: () => void
+    newPostText: string
+    updateNewPostText: (newPostText: string) => void
 }
 
-export const ProfileComponent = (props:ProfileComponentPropsType) => {
+export const ProfileComponent = (props: ProfileComponentPropsType) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts forMyPosts={props.forMyPosts}  addPostForMyPosts={props.addPostForMyPosts}/>
+            <MyPosts forMyPosts={props.forMyPosts}
+                     addPostForMyPosts={props.addPostForMyPosts}
+                     newPostText={props.newPostText}
+                     updateNewPostText={props.updateNewPostText}
+            />
         </div>
     );
 };

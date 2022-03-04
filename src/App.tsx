@@ -17,11 +17,13 @@ import {addPost} from "./Redux/State";
 export type AppPropsType = {
     forDialogItem: Array<DialogItemPropsType>
     forMessages: Array<MessagesPropsType>
-    forMyPosts:Array<PostPropsType>
-    addPostForMyPosts: (postMessage:string)=>void
+    forMyPosts: Array<PostPropsType>
+    addPostForMyPosts: () => void
+    newPostText: string
+    updateNewPostText: (newPostText: string) => void
 }
 
-function App(props:AppPropsType) {
+function App(props: AppPropsType) {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -29,8 +31,13 @@ function App(props:AppPropsType) {
                 <NavBar/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path='/dialogs/*' element={<Dialogs forDialogItem={props.forDialogItem} forMessages={props.forMessages}/>}/>
-                        <Route path='/profile' element={<ProfileComponent forMyPosts={props.forMyPosts} addPostForMyPosts={props.addPostForMyPosts}/>}/>
+                        <Route path='/dialogs/*' element={<Dialogs forDialogItem={props.forDialogItem}
+                                                                   forMessages={props.forMessages}/>}/>
+                        <Route path='/profile' element={<ProfileComponent forMyPosts={props.forMyPosts}
+                                                                          addPostForMyPosts={props.addPostForMyPosts}
+                                                                          newPostText={props.newPostText}
+                                                                          updateNewPostText={props.updateNewPostText}
+                        />}/>
                         <Route path='/news' element={<News/>}/>
                         <Route path='/music' element={<Music/>}/>
                         <Route path='/settings' element={<Settings/>}/>

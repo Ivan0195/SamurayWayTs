@@ -23,6 +23,7 @@ export type StateType = {
     users: Array<UsersType>
     messages: Array<MessagesType>
     posts: Array<PostsType>
+    newPostText:string
 }
 
 export let state = {
@@ -76,16 +77,25 @@ export let state = {
             userName: 'Tim McIlrath',
             likesCount: 33
         }
-    ]
+    ],
+    newPostText: 'it-kamasutra'
 }
 
-export const addPost = (postMassage:string) => {
+
+
+    export const addPost = () => {
     let newPost: PostPropsType = {
-        postText: postMassage,
+        postText: state.newPostText,
         avaAddress: 'https://b1.culture.ru/c/735787.jpg',
         userName:'Viktor Tsoy',
         likesCount:0
         }
         state.posts.push(newPost)
+        state.newPostText = ''
+    rerenderEntireTree(state)
+}
+
+export const updateNewPostText = (newText:string) => {
+    state.newPostText = newText
     rerenderEntireTree(state)
 }
