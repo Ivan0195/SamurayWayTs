@@ -12,14 +12,14 @@ import {Settings} from "./Components/Settings/Settings";
 import {MessagesPropsType} from "./Components/Dialogs/Messages/Messages";
 import {DialogItemPropsType} from "./Components/Dialogs/DialogItem/DialogItem";
 import {PostPropsType} from "./Components/ProfileComponent/MyPosts/Post/Post";
+import {addPostActionType, updateNewPostTextActionType} from "./Redux/State";
 
 export type AppPropsType = {
     forDialogItem: Array<DialogItemPropsType>
     forMessages: Array<MessagesPropsType>
     forMyPosts: Array<PostPropsType>
-    addPostForMyPosts: () => void
     newPostText: string
-    updateNewPostText: (newPostText: string) => void
+    dispatch: (action: addPostActionType | updateNewPostTextActionType) => void
 }
 
 function App(props: AppPropsType) {
@@ -33,9 +33,8 @@ function App(props: AppPropsType) {
                         <Route path='/dialogs/*' element={<Dialogs forDialogItem={props.forDialogItem}
                                                                    forMessages={props.forMessages}/>}/>
                         <Route path='/profile' element={<ProfileComponent forMyPosts={props.forMyPosts}
-                                                                          addPostForMyPosts={props.addPostForMyPosts}
                                                                           newPostText={props.newPostText}
-                                                                          updateNewPostText={props.updateNewPostText}
+                                                                          dispatch={props.dispatch}
                         />}/>
                         <Route path='/news' element={<News/>}/>
                         <Route path='/music' element={<Music/>}/>

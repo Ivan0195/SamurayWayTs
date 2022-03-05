@@ -26,6 +26,15 @@ export type StateType = {
     newPostText:string
 }
 
+export type addPostActionType = {
+    type: 'ADD-POST'
+}
+
+export type updateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText:string
+}
+
 export let store = {
     _state: {
         users: [
@@ -84,7 +93,12 @@ export let store = {
     _callSubscriber(state:StateType) {
         alert('заглушка')
     },
-    addPost() {
+
+    subscribe(observer: (state: StateType) => void) {
+        this._callSubscriber = observer},
+    getState() {return this._state},
+
+    _addPost() {
         let newPost: PostPropsType = {
             postText: this._state.newPostText,
             avaAddress: 'https://b1.culture.ru/c/735787.jpg',
@@ -95,13 +109,21 @@ export let store = {
         this._state.newPostText = ''
         this._callSubscriber(this._state)
     },
-    updateNewPostText (newText:string) {
+    _updateNewPostText (newText:string) {
         this._state.newPostText = newText
         this._callSubscriber(this._state)
     },
-    subscribe(observer: (state: StateType) => void) {
-        this._callSubscriber = observer},
-    getState() {return this._state},
+
+    dispatch(action: addPostActionType | updateNewPostTextActionType) {
+        switch (action.type){
+            case 'ADD-POST':
+               this._addPost()
+                break
+
+            case 'UPDATE-NEW-POST-TEXT':
+                this._updateNewPostText(action.newText)
+        }
+    }
 }
 
 /*export let state = {

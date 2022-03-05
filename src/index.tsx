@@ -12,9 +12,8 @@ export const rerenderEntireTree = (state:StateType) => {
             <App forDialogItem={state.users}
                  forMessages={state.messages}
                  forMyPosts={state.posts}
-                 addPostForMyPosts={store.addPost.bind(store)}
                  newPostText={state.newPostText}
-                 updateNewPostText={store.updateNewPostText.bind(store)}
+                 dispatch={store.dispatch.bind(store)}
             />
         </React.StrictMode>,
         document.getElementById('root')
