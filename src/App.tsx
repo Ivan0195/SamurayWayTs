@@ -12,7 +12,6 @@ import {Settings} from "./Components/Settings/Settings";
 import {MessagesPropsType} from "./Components/Dialogs/Messages/Messages";
 import {DialogItemPropsType} from "./Components/Dialogs/DialogItem/DialogItem";
 import {PostPropsType} from "./Components/ProfileComponent/MyPosts/Post/Post";
-import {addPost} from "./Redux/State";
 
 export type AppPropsType = {
     forDialogItem: Array<DialogItemPropsType>

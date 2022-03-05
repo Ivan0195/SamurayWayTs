@@ -1,10 +1,9 @@
 import React from 'react';
 import './index.css';
-import {state, StateType, subscribe} from "./Redux/State";
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {addPost, updateNewPostText} from "./Redux/State";
+import {store, StateType} from "./Redux/State";
 
 
 export const rerenderEntireTree = (state:StateType) => {
@@ -13,9 +12,9 @@ export const rerenderEntireTree = (state:StateType) => {
             <App forDialogItem={state.users}
                  forMessages={state.messages}
                  forMyPosts={state.posts}
-                 addPostForMyPosts={addPost}
+                 addPostForMyPosts={store.addPost.bind(store)}
                  newPostText={state.newPostText}
-                 updateNewPostText={updateNewPostText}
+                 updateNewPostText={store.updateNewPostText.bind(store)}
             />
         </React.StrictMode>,
         document.getElementById('root')
@@ -23,7 +22,7 @@ export const rerenderEntireTree = (state:StateType) => {
 }
 
 
-rerenderEntireTree(state)
+rerenderEntireTree(store.getState())
 
-subscribe(()=>rerenderEntireTree(state))
+store.subscribe(()=>rerenderEntireTree(store.getState()))
 
