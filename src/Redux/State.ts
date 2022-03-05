@@ -126,6 +126,9 @@ export let store = {
     }
 }
 
+export const addPostAC = ():addPostActionType => ({type: 'ADD-POST'})
+export const updatePostTextAC = (newText:string):updateNewPostTextActionType =>({type: 'UPDATE-NEW-POST-TEXT', newText})
+
 /*export let state = {
     users: [
         {id: '1', userName: 'Viktor Tsoy'},
