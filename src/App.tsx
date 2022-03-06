@@ -12,14 +12,20 @@ import {Settings} from "./Components/Settings/Settings";
 import {MessagesPropsType} from "./Components/Dialogs/Messages/Messages";
 import {DialogItemPropsType} from "./Components/Dialogs/DialogItem/DialogItem";
 import {PostPropsType} from "./Components/ProfileComponent/MyPosts/Post/Post";
-import {addPostActionType, updateNewPostTextActionType} from "./Redux/State";
+import {
+    addPostActionType,
+    sendNewMessageActionType,
+    updateNewMessageTextActionType,
+    updateNewPostTextActionType
+} from "./Redux/State";
 
 export type AppPropsType = {
     forDialogItem: Array<DialogItemPropsType>
     forMessages: Array<MessagesPropsType>
     forMyPosts: Array<PostPropsType>
     newPostText: string
-    dispatch: (action: addPostActionType | updateNewPostTextActionType) => void
+    dispatch: (action: addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType) => void
+    newMessageText: string
 }
 
 function App(props: AppPropsType) {
@@ -31,7 +37,9 @@ function App(props: AppPropsType) {
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path='/dialogs/*' element={<Dialogs forDialogItem={props.forDialogItem}
-                                                                   forMessages={props.forMessages}/>}/>
+                                                                   forMessages={props.forMessages}
+                                                                   newMessageText={props.newMessageText}
+                                                                   dispatch={props.dispatch}/>}/>
                         <Route path='/profile' element={<ProfileComponent forMyPosts={props.forMyPosts}
                                                                           newPostText={props.newPostText}
                                                                           dispatch={props.dispatch}

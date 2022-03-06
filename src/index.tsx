@@ -14,6 +14,7 @@ export const rerenderEntireTree = (state:StateType) => {
                  forMyPosts={state.posts}
                  newPostText={state.newPostText}
                  dispatch={store.dispatch.bind(store)}
+                 newMessageText={state.newMessageText}
             />
         </React.StrictMode>,
         document.getElementById('root')

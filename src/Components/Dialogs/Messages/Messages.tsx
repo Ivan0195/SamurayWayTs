@@ -8,8 +8,6 @@ export type MessagesPropsType = {
 export const Messages = (props:MessagesPropsType)=> {
     return <>
         <div className={classes.message}>{props.message}</div>
-        <textarea></textarea>
-        <button></button>
     </>
 
 }

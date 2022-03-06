@@ -1,9 +1,11 @@
 import {PostPropsType} from "../Components/ProfileComponent/MyPosts/Post/Post";
+import {postsReducer} from "./posts-reducer";
+import {messagesReducer} from "./messages-reducer";
 
 
 type UsersType = {
     id: string
-    userName:string
+    userName: string
 }
 
 type MessagesType = {
@@ -23,7 +25,8 @@ export type StateType = {
     users: Array<UsersType>
     messages: Array<MessagesType>
     posts: Array<PostsType>
-    newPostText:string
+    newPostText: string
+    newMessageText: string
 }
 
 export type addPostActionType = {
@@ -32,7 +35,16 @@ export type addPostActionType = {
 
 export type updateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
-    newText:string
+    newText: string
+}
+
+export type updateNewMessageTextActionType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    newText: string
+}
+
+export type sendNewMessageActionType = {
+    type: 'SEND-NEW-MESSAGE'
 }
 
 export let store = {
@@ -88,46 +100,66 @@ export let store = {
                 likesCount: 33
             }
         ],
-        newPostText: 'it-kamasutra'
+        newPostText: 'it-kamasutra',
+        newMessageText: '',
     },
-    _callSubscriber(state:StateType) {
+    _callSubscriber(state: StateType) {
         alert('заглушка')
     },
 
     subscribe(observer: (state: StateType) => void) {
-        this._callSubscriber = observer},
-    getState() {return this._state},
-
-    _addPost() {
-        let newPost: PostPropsType = {
-            postText: this._state.newPostText,
-            avaAddress: 'https://b1.culture.ru/c/735787.jpg',
-            userName: 'Viktor Tsoy',
-            likesCount: 0
-        }
-        this._state.posts.push(newPost)
-        this._state.newPostText = ''
+        this._callSubscriber = observer
+    },
+    getState() {
+        return this._state
+    },
+    dispatch(action: addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType) {
+        this._state = postsReducer(this._state, action)
+        this._state = messagesReducer(this._state, action)
         this._callSubscriber(this._state)
     },
-    _updateNewPostText (newText:string) {
-        this._state.newPostText = newText
-        this._callSubscriber(this._state)
-    },
-
-    dispatch(action: addPostActionType | updateNewPostTextActionType) {
-        switch (action.type){
-            case 'ADD-POST':
-               this._addPost()
-                break
-
-            case 'UPDATE-NEW-POST-TEXT':
-                this._updateNewPostText(action.newText)
-        }
-    }
 }
 
-export const addPostAC = ():addPostActionType => ({type: 'ADD-POST'})
-export const updatePostTextAC = (newText:string):updateNewPostTextActionType =>({type: 'UPDATE-NEW-POST-TEXT', newText})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*export let state = {
     users: [
