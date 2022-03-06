@@ -13,16 +13,16 @@ import {MessagesPropsType} from "./Components/Dialogs/Messages/Messages";
 import {DialogItemPropsType} from "./Components/Dialogs/DialogItem/DialogItem";
 import {PostPropsType} from "./Components/ProfileComponent/MyPosts/Post/Post";
 import {
-    addPostActionType,
+    addPostActionType, MessagesType, PostsType,
     sendNewMessageActionType,
     updateNewMessageTextActionType,
     updateNewPostTextActionType
-} from "./Redux/State";
+} from "./Redux/store";
 
 export type AppPropsType = {
     forDialogItem: Array<DialogItemPropsType>
-    forMessages: Array<MessagesPropsType>
-    forMyPosts: Array<PostPropsType>
+    forMessages: MessagesType
+    forMyPosts: PostsType
     newPostText: string
     dispatch: (action: addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType) => void
     newMessageText: string

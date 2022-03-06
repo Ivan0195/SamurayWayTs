@@ -1,12 +1,12 @@
 import React from 'react';
 import classes from './MyPosts.module.css'
 import Post, {PostPropsType} from "./Post/Post";
-import {addPostActionType, updateNewPostTextActionType} from "../../../Redux/State";
+import {addPostActionType, PostsType, updateNewPostTextActionType} from "../../../Redux/store";
 import {addPostAC, updatePostTextAC} from "../../../Redux/posts-reducer";
 
 
 export type MyPostPropsType = {
-    forMyPosts: Array<PostPropsType>
+    forMyPosts: PostsType
     newPostText: string
     dispatch: (action: addPostActionType | updateNewPostTextActionType) => void
 }
@@ -43,7 +43,7 @@ const MyPosts = (props: MyPostPropsType) => {
                 </div>
             </div>
             <div className={classes.posts}>
-                {props.forMyPosts.map(m => <Post avaAddress={m.avaAddress}
+                {props.forMyPosts.posts.map(m => <Post avaAddress={m.avaAddress}
                                                  postText={m.postText}
                                                  userName={m.userName}
                                                  likesCount={m.likesCount}/>)}

@@ -3,15 +3,15 @@ import classes from "./Dialogs.module.css";
 import {DialogItem, DialogItemPropsType} from "./DialogItem/DialogItem";
 import {Messages, MessagesPropsType} from "./Messages/Messages";
 import {
-    addPostActionType, sendNewMessageActionType,
+    addPostActionType, MessagesType, sendNewMessageActionType,
     store, updateNewMessageTextActionType,
     updateNewPostTextActionType
-} from "../../Redux/State";
+} from "../../Redux/store";
 import {sendNewMessageAC, updateNewMessageTextAC} from "../../Redux/messages-reducer";
 
 export type DialogsPropsType = {
     forDialogItem: Array<DialogItemPropsType>
-    forMessages: Array<MessagesPropsType>
+    forMessages: MessagesType
     newMessageText: string
     dispatch: (action: addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType) => void
 }
@@ -33,7 +33,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                 {props.forDialogItem.map(m => (<DialogItem userName={m.userName} id={m.id}/>))}
             </div>
             <div className={classes.messages}>
-                <div>{props.forMessages.map(m => <Messages message={m.message}/>)}</div>
+                <div>{props.forMessages.messages.map(m => <Messages message={m.message}/>)}</div>
                 <div>
                     <div><textarea placeholder={'Enter your message'} value={newMessageText} onChange={onNewMessageChange}></textarea>
                     </div>

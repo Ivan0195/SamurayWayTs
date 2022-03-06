@@ -1,15 +1,22 @@
-import React from 'react';
 import {
-    addPostActionType,
+    addPostActionType, MessagesType, PostsType,
     sendNewMessageActionType,
     StateType,
     updateNewMessageTextActionType,
     updateNewPostTextActionType
-} from "./State";
+} from "./store";
 
 
+let initialState = {
+    messages: [
+    {id: '1', message: 'Answer your phone'},
+    {id: '2', message: 'Add me to your friend =)'},
+    {id: '3', message: 'Do you remember anything from the last party?'},
+],
+    newMessageText: '',
+    }
 
-export const messagesReducer = (state:StateType, action:addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType) => {
+export const messagesReducer = (state: MessagesType = initialState, action:addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType) => {
 
     switch (action.type) {
 
