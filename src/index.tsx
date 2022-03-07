@@ -5,18 +5,15 @@ import './index.css';
 import App from './App';
 import {StateType} from "./Redux/store";
 import {store} from "./Redux/redux-store";
+import {Provider} from "react-redux";
 
 
 export const rerenderEntireTree = (state:StateType) => {
     ReactDOM.render(
         <React.StrictMode>
-            <App forDialogItem={state.users.users}
-                 forMessages={state.messages}
-                 forMyPosts={state.posts}
-                 newPostText={state.posts.newPostText}
-                 dispatch={store.dispatch.bind(store)}
-                 newMessageText={state.messages.newMessageText}
-            />
+            <Provider store={store}>
+                <App/>
+            </Provider>
         </React.StrictMode>,
         document.getElementById('root')
     );

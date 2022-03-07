@@ -1,12 +1,9 @@
 import React from 'react';
 import classes from "../Dialogs.module.css";
 import {NavLink} from "react-router-dom";
+import {UsersBodyType} from "../../../Redux/store";
 
-export type DialogItemPropsType = {
-    userName: string
-    id: string
-}
-export const DialogItem = (props: DialogItemPropsType) => {
+export const DialogItem = (props: UsersBodyType) => {
     return <div>
         <NavLink className={ nav => nav.isActive ? classes.active : classes.dialog } to={'/dialogs/'+props.id}>{props.userName}</NavLink>
     </div>
