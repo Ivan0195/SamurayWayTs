@@ -54,20 +54,24 @@ const initialState = {
 export const postsReducer = (state: PostsType = initialState, action:  addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType) => {
 
     switch (action.type) {
-        case 'ADD-POST':
+        case 'ADD-POST':{
             let newPost: PostPropsType = {
                 postText: state.newPostText,
                 avaAddress: 'https://b1.culture.ru/c/735787.jpg',
                 userName: 'Viktor Tsoy',
                 likesCount: 0
             }
-            state.posts.push(newPost)
-            state.newPostText = ''
-            break
-
-        case 'UPDATE-NEW-POST-TEXT':
-            state.newPostText = action.newText
-            break
+            const copyState = {...state}
+            copyState.posts = [...state.posts]
+            copyState.posts.push(newPost)
+            copyState.newPostText = ''
+            return copyState
+            break}
+        case 'UPDATE-NEW-POST-TEXT':{
+            const copyState = {...state}
+            copyState.newPostText = action.newText
+            return copyState
+            break}
         default: return state
     }
     return state

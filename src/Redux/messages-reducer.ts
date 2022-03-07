@@ -21,13 +21,18 @@ export const messagesReducer = (state: MessagesType = initialState, action:addPo
     switch (action.type) {
 
         case 'UPDATE-NEW-MESSAGE-TEXT':
-            state.newMessageText = action.newText
+            const newState = {...state}
+            newState.newMessageText = action.newText
+            return newState
             break
         case 'SEND-NEW-MESSAGE':
             const newMessage = state.newMessageText
             const newMessageId = state.messages.length + 2
-            state.newMessageText = ''
-            state.messages.push({id: newMessageId.toString(), message: newMessage})
+            const newState2 = {...state}
+            newState2.newMessageText = ''
+            newState2.messages=[...state.messages]
+            newState2.messages.push({id: newMessageId.toString(), message: newMessage})
+            return newState2
             break
         default:
             return state
