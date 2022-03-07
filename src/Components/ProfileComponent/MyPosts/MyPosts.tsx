@@ -41,10 +41,10 @@ const MyPosts = (props: MyPostPropsType) => {
                 </div>
             </div>
             <div className={classes.posts}>
-                {props.forMyPosts.posts.map(m => <Post avaAddress={m.avaAddress}
+                {props.forMyPosts.posts.map((m, index) => <Post avaAddress={m.avaAddress}
                                                  postText={m.postText}
                                                  userName={m.userName}
-                                                 likesCount={m.likesCount}/>)}
+                                                 likesCount={m.likesCount} key={index}/>)}
             </div>
         </div>
     );

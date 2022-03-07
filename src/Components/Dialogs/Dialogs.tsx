@@ -26,10 +26,10 @@ export const Dialogs = (props: DialogsPropsType) => {
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
-                {props.forDialogItem.map(m => (<DialogItem userName={m.userName} id={m.id}/>))}
+                {props.forDialogItem.map(m => (<DialogItem userName={m.userName} key={m.id} id={m.id}/>))}
             </div>
             <div className={classes.messages}>
-                <div>{props.forMessages.messages.map(m => <Messages message={m.message}/>)}</div>
+                <div>{props.forMessages.messages.map(m => <Messages message={m.message} key={m.id}/>)}</div>
                 <div>
                     <div><textarea placeholder={'Enter your message'} value={newMessageText} onChange={onNewMessageChange}></textarea>
                     </div>

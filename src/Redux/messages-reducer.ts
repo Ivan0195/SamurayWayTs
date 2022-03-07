@@ -9,30 +9,28 @@ import {
 
 let initialState = {
     messages: [
-    {id: '1', message: 'Answer your phone'},
-    {id: '2', message: 'Add me to your friend =)'},
-    {id: '3', message: 'Do you remember anything from the last party?'},
-],
+        {id: '1', message: 'Answer your phone'},
+        {id: '2', message: 'Add me to your friend =)'},
+        {id: '3', message: 'Do you remember anything from the last party?'},
+    ],
     newMessageText: '',
-    }
+}
 
-export const messagesReducer = (state: MessagesType = initialState, action:addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType) => {
+export const messagesReducer = (state: MessagesType = initialState, action: addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType) => {
 
     switch (action.type) {
 
         case 'UPDATE-NEW-MESSAGE-TEXT':
-            const newState = {...state}
-            newState.newMessageText = action.newText
-            return newState
+            return {...state, newMessageText: action.newText}
             break
         case 'SEND-NEW-MESSAGE':
             const newMessage = state.newMessageText
-            const newMessageId = state.messages.length + 2
-            const newState2 = {...state}
-            newState2.newMessageText = ''
-            newState2.messages=[...state.messages]
-            newState2.messages.push({id: newMessageId.toString(), message: newMessage})
-            return newState2
+            const newMessageId = (state.messages.length + 2).toString()
+            return  {
+                ...state,
+                newMessageText: '',
+                messages: [...state.messages, {id: newMessageId, message: newMessage}],
+            }
             break
         default:
             return state
