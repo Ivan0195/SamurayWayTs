@@ -1,7 +1,7 @@
 import {
-    addPostActionType, PostsType,
+    addPostActionType,
+    PostsType,
     sendNewMessageActionType,
-    StateType,
     updateNewMessageTextActionType,
     updateNewPostTextActionType
 } from "./store";
