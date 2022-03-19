@@ -4,7 +4,6 @@ import {AppStateType} from "../../Redux/redux-store";
 import {AllUsersType, setAllUsersAC, toggleFollowAC} from "../../Redux/all-users-reducer";
 import {Dispatch} from "redux";
 import {Users} from "./Users";
-import {UsersBodyType} from "../../Redux/store";
 
 const mapStateToProps = (state:AppStateType) => {
 return {
@@ -14,7 +13,7 @@ return {
 
 const mapDispatchToProps = (dispatch:Dispatch) => {
 return{
-    toggleFollow: (id: string) => {
+    toggleFollow: (id: number) => {
         dispatch(toggleFollowAC(id))
     },
     setUsers: (allUsers:AllUsersType) => {

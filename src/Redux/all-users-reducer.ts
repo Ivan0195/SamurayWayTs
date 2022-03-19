@@ -6,16 +6,26 @@ import {
 } from "./store";
 
 export type UserInfoType = {
-    id: string, userName: string, avaAddress: string , status: string, location: { city: string, country:string}, isFollowed: boolean
+    "name": string,
+    "id": number,
+    "uniqueUrlName": null | string,
+    "photos": {
+        "small": null | string,
+        "large": null | string
+    },
+    "status": null| string,
+    "followed": boolean
 }
 
 export type AllUsersType = {
-    allUsers: Array<UserInfoType>
+    items: Array<UserInfoType>
+    "totalCount": number,
+    "error": null | string
 }
 
 export type toggleFollowActionType = {
     type: 'TOGGLE-FOLLOW'
-    id: string
+    id: number
 }
 
 export type setAllUsersActionType = {
@@ -23,30 +33,136 @@ export type setAllUsersActionType = {
     allUsers: AllUsersType
 }
 
-let initialState  = { allUsers: [
-    {id: '1', userName: 'Viktor Tsoy', avaAddress: 'https://b1.culture.ru/c/735787.jpg' , status: 'I am alive', location: {city: 'Moscow', country: 'Russia'} , isFollowed: true},
-    {id: '2', userName: 'Corey Taylor', avaAddress: 'https://salvemusic.com.ua/wp-content/uploads/2020/10/corey-taylor-1024x576.jpg', status: 'Let me rock', location: {city: 'Iowa', country: 'USA'}, isFollowed: true},
-    {id: '3', userName: 'Jared Leto', avaAddress: 'https://fs.kinomania.ru/file/person/c/ec/cec6f62cfb44b1be110b7bf70c8362d8.jpeg', status: 'I feel so happy', location: {city: 'LA', country: 'USA'}, isFollowed: false},
-    {id: '4', userName: 'Hoy', avaAddress: 'https://peterburg.center/sites/default/files/img/event_m/2020-02/3ealj3jer9q.jpg', status: "Hey! What's up?", location: {city: 'St. Peterburg', country: 'Russia'}, isFollowed: true},
-    {id: '5', userName: 'Misha Gorshnev', avaAddress: 'https://m.the-flow.ru/uploads/images/resize/830x0/adaptiveResize/13/97/19/48/63/425ad4140cd7.png', status: "Let's travel more", location: {city: 'Minsk', country: 'Belarus'}, isFollowed: false},
-    {id: '6', userName: 'Tim McIlrath', avaAddress: 'https://i.pinimg.com/originals/b6/ab/43/b6ab431f8eaddd29b49f6a1ad8b5effc.jpg', status: 'Be kind to each other', location: {city: 'Huston', country: 'USA'}, isFollowed: true},
-]}
+let initialState  = {  "items": [
+        /*{
+            "name": "proslavafur",
+            "id": 22905,
+            "uniqueUrlName": null,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": false
+        },
+        {
+            "name": "romchesko_pazzi",
+            "id": 22904,
+            "uniqueUrlName": null,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": false
+        },
+        {
+            "name": "Hakob1986",
+            "id": 22903,
+            "uniqueUrlName": null,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": false
+        },
+        {
+            "name": "nilubisan",
+            "id": 22902,
+            "uniqueUrlName": null,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": false
+        },
+        {
+            "name": "AxiixA",
+            "id": 22901,
+            "uniqueUrlName": null,
+            "photos": {
+                "small": "https://social-network.samuraijs.com/activecontent/images/users/22901/user-small.jpg?v=1",
+                "large": "https://social-network.samuraijs.com/activecontent/images/users/22901/user.jpg?v=1"
+            },
+            "status": "Хомячок флексит 10 часов под пхонк",
+            "followed": false
+        },
+        {
+            "name": "LordGudzo",
+            "id": 22900,
+            "uniqueUrlName": null,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": false
+        },
+        {
+            "name": "YourFriendBy",
+            "id": 22899,
+            "uniqueUrlName": null,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": false
+        },
+        {
+            "name": "mantry",
+            "id": 22898,
+            "uniqueUrlName": null,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": false
+        },
+        {
+            "name": "matry",
+            "id": 22897,
+            "uniqueUrlName": null,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": false
+        },
+        {
+            "name": "Altmer",
+            "id": 22896,
+            "uniqueUrlName": null,
+            "photos": {
+                "small": null,
+                "large": null
+            },
+            "status": null,
+            "followed": false
+        }*/
+    ],
+    "totalCount": 17913,
+    "error": null}
 export const allUsersReducer = (state: AllUsersType = initialState, action:addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType | toggleFollowActionType | setAllUsersActionType) => {
 switch (action.type){
     case 'TOGGLE-FOLLOW':
         let stateCopy = {
             ...state,
-            allUsers: state.allUsers.map(m=>m.id===action.id ? {...m, isFollowed: !m.isFollowed} : {...m})
+            items: state.items.map(m=>m.id===action.id ? {...m, followed: !m.followed} : {...m})
         }
         return stateCopy
     case 'SET-ALL-USERS': {
-        return {...state, allUsers: [...state.allUsers]}
+        return {...state, items: [...state.items, ...action.allUsers.items]}
     }
     default: return state
 }
 }
 
-export const toggleFollowAC = (id: string):toggleFollowActionType => {
+export const toggleFollowAC = (id: number):toggleFollowActionType => {
 return {type: 'TOGGLE-FOLLOW', id}
 }
 
