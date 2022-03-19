@@ -156,7 +156,7 @@ switch (action.type){
         }
         return stateCopy
     case 'SET-ALL-USERS': {
-        return {...state, items: [...state.items, ...action.allUsers.items]}
+        return {...state, items: [...action.allUsers.items]}
     }
     default: return state
 }
