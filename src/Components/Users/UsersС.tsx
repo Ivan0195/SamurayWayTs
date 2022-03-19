@@ -11,14 +11,19 @@ export type UsersPropsType = {
 
 class UsersC extends React.Component <UsersPropsType> {
 
-    getUsers = () => {
+    constructor(props:UsersPropsType) {
+        super(props);
         if(this.props.allUsers.items.length === 0) {axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => this.props.setUsers(response.data))}
     }
+
+   /* getUsers = () => {
+        if(this.props.allUsers.items.length === 0) {axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => this.props.setUsers(response.data))}
+    }*/
 
     render() {
         return (
             <div>
-                <button onClick={this.getUsers}>Get Users!</button>
+              {/*  <button onClick={this.getUsers}>Get Users!</button>*/}
                 {this.props.allUsers.items.map(m => <div key={m.id}>
             <span>
                 <div><img src={m.photos.small===null ? 'https://image.shutterstock.com/image-vector/unknown-user-icon-trendy-flat-600w-619490732.jpg' : m.photos.small} className={s.img} /></div>
