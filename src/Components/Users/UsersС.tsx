@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {AllUsersType} from "../../Redux/all-users-reducer";
 import s from './Users.module.css'
 import axios from "axios";
@@ -13,16 +13,34 @@ class UsersC extends React.Component <UsersPropsType> {
 
     constructor(props:UsersPropsType) {
         super(props);
-        if(this.props.allUsers.items.length === 0) {axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => this.props.setUsers(response.data))}
+
     }
 
    /* getUsers = () => {
         if(this.props.allUsers.items.length === 0) {axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => this.props.setUsers(response.data))}
     }*/
 
+    componentDidMount() {
+        if(this.props.allUsers.items.length === 0) {axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => this.props.setUsers(response.data))}
+    }
+
     render() {
+
+        let pagesCount = this.props.allUsers.totalCount/this.props.allUsers.pageCount
+
+        let pages = []
+        for (let i=1; i<=pagesCount; i++){
+            pages.push(i)
+        }
+
         return (
             <div>
+                <div>
+                    {pages.map(p => <span className={this.props.allUsers.selectedPage===p ? s.selected : ''} onClick={ () => {
+                        this.props.allUsers.selectedPage=p
+                        axios.get('https://social-network.samuraijs.com/api/1.0/users?page=1&count={m}').then(response => this.props.setUsers(response.data))
+                    } }>{p}</span> )}
+                </div>
               {/*  <button onClick={this.getUsers}>Get Users!</button>*/}
                 {this.props.allUsers.items.map(m => <div key={m.id}>
             <span>
