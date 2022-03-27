@@ -3,10 +3,10 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {
     AllUsersType,
-    isFetchingAC,
-    setAllUsersAC,
-    setSelectedPageAC,
-    toggleFollowAC
+    isFetching,
+    setAllUsers,
+    setSelectedPage,
+    toggleFollow
 } from "../../Redux/all-users-reducer";
 import {Dispatch} from "redux";
 import axios from "axios";
@@ -16,9 +16,9 @@ import Preloader from "../Common/Preloader";
 export type UsersPropsType = {
     allUsers: AllUsersType
     toggleFollow: (id: number) => void
-    setUsers: (allUsers: AllUsersType) => void
+    setAllUsers: (allUsers: AllUsersType) => void
     setSelectedPage: (page: number) => void
-    toggleIsFetching: (isFetching:boolean) => void
+    isFetching: (isFetching:boolean) => void
 }
 
 class UsersAPI extends React.Component <UsersPropsType> {
@@ -29,21 +29,21 @@ class UsersAPI extends React.Component <UsersPropsType> {
     }
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
+        this.props.isFetching(true)
         if (this.props.allUsers.items.length === 0) {
             axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.allUsers.selectedPage}&count=${this.props.allUsers.pageCount}`).then(response => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data)
+                this.props.isFetching(false)
+                this.props.setAllUsers(response.data)
             })
         }
     }
 
     onPageChanged = (page: number) => {
         this.props.setSelectedPage(page)
-        this.props.toggleIsFetching(true)
+        this.props.isFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.allUsers.pageCount}`).then(response => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(response.data)
+            this.props.isFetching(false)
+            this.props.setAllUsers(response.data)
         })
     }
 
@@ -58,7 +58,7 @@ class UsersAPI extends React.Component <UsersPropsType> {
                     : null}
                 <UsersFuncComponent
                     allUsers={this.props.allUsers}
-                    setUsers={this.props.setUsers}
+                    setUsers={this.props.setAllUsers}
                     setSelectedPage={this.props.setSelectedPage}
                     toggleFollow={this.props.toggleFollow}
                     onPageChange={this.onPageChanged}
@@ -76,7 +76,7 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+/*const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         toggleFollow: (id: number) => {
             dispatch(toggleFollowAC(id))
@@ -91,5 +91,13 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
             dispatch(isFetchingAC(isFetching))
         }
     }
+}*/
+
+const a = {
+    toggleFollow,
+    setAllUsers,
+    setSelectedPage,
+    isFetching
 }
-export const UsersCContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPI);
+
+export const UsersCContainer = connect(mapStateToProps, a)(UsersAPI);

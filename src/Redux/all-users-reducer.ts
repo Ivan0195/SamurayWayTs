@@ -85,19 +85,19 @@ export const allUsersReducer = (
     }
 }
 
-export const toggleFollowAC = (id: number): toggleFollowActionType => {
+export const toggleFollow = (id: number): toggleFollowActionType => {
     return {type: 'TOGGLE-FOLLOW', id}
 }
 
-export const setAllUsersAC = (allUsers: AllUsersType): setAllUsersActionType => ({type: 'SET-ALL-USERS', allUsers})
+export const setAllUsers = (allUsers: AllUsersType): setAllUsersActionType => ({type: 'SET-ALL-USERS', allUsers})
 
-export const setSelectedPageAC = (page: number) => {
+export const setSelectedPage = (page: number) => {
     return {
         type: 'SET-SELECTED-PAGE',
         selectedPage: page
     }
 }
-export const isFetchingAC = (isFetching:boolean) => {
+export const isFetching = (isFetching:boolean) => {
     return {
         type: 'TOGGLE-IS-FETCHING',
         isFetching
