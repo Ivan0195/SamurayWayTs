@@ -45,7 +45,7 @@ let initialState = {
     "totalCount": 17913,
     "error": null,
     "pageCount": 100,
-    "selectedPage": 126
+    "selectedPage": 1
 }
 export const allUsersReducer = (state: AllUsersType = initialState, action: addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType | toggleFollowActionType | setAllUsersActionType | setSelectedPageActionType) => {
     switch (action.type) {
