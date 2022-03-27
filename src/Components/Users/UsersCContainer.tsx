@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {AllUsersType, setAllUsersAC, toggleFollowAC} from "../../Redux/all-users-reducer";
+import {AllUsersType, setAllUsersAC, setSelectedPageAC, toggleFollowAC} from "../../Redux/all-users-reducer";
 import {Dispatch} from "redux";
 import {Users} from "./Users";
 import UsersC from "./UsersС";
@@ -19,6 +19,9 @@ return{
     },
     setUsers: (allUsers:AllUsersType) => {
         dispatch(setAllUsersAC(allUsers))
+    },
+    setSelectedPage: (page:number) => {
+        dispatch(setSelectedPageAC(page))
     }
 }
 }

@@ -7,6 +7,7 @@ export type UsersPropsType = {
     allUsers: AllUsersType
     toggleFollow: (id: number) => void
     setUsers: (allUsers: AllUsersType) => void
+    setSelectedPage: (page:number) => void
 }
 
 class UsersC extends React.Component <UsersPropsType> {
@@ -21,12 +22,17 @@ class UsersC extends React.Component <UsersPropsType> {
     }*/
 
     componentDidMount() {
-        if(this.props.allUsers.items.length === 0) {axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => this.props.setUsers(response.data))}
+        if(this.props.allUsers.items.length === 0) {axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.allUsers.selectedPage}&count=${this.props.allUsers.pageCount}`).then(response => this.props.setUsers(response.data))}
+    }
+
+    onPageChanged = (page:number) =>{
+        this.props.setSelectedPage(page)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.allUsers.pageCount}`).then(response => this.props.setUsers(response.data))
     }
 
     render() {
 
-        let pagesCount = this.props.allUsers.totalCount/this.props.allUsers.pageCount
+        let pagesCount = Math.ceil(this.props.allUsers.totalCount/this.props.allUsers.pageCount)
 
         let pages = []
         for (let i=1; i<=pagesCount; i++){
@@ -36,10 +42,7 @@ class UsersC extends React.Component <UsersPropsType> {
         return (
             <div>
                 <div>
-                    {pages.map(p => <span className={this.props.allUsers.selectedPage===p ? s.selected : ''} onClick={ () => {
-                        this.props.allUsers.selectedPage=p
-                        axios.get('https://social-network.samuraijs.com/api/1.0/users?page=1&count={m}').then(response => this.props.setUsers(response.data))
-                    } }>{p}</span> )}
+                    {pages.map(p => <span className={this.props.allUsers.selectedPage===p ? s.selected : ''} onClick={() => this.onPageChanged(p)}>{p+' '}</span> )}
                 </div>
               {/*  <button onClick={this.getUsers}>Get Users!</button>*/}
                 {this.props.allUsers.items.map(m => <div key={m.id}>
