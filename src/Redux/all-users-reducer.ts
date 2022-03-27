@@ -23,6 +23,7 @@ export type AllUsersType = {
     "error": null | string
     "pageCount": number,
     "selectedPage": number
+    isFetching: boolean
 }
 
 export type toggleFollowActionType = {
@@ -40,14 +41,29 @@ export type setSelectedPageActionType = {
     selectedPage: number
 }
 
+export type toggleIsFetchingActionType = {
+    type: 'TOGGLE-IS-FETCHING'
+    isFetching: boolean
+}
+
 let initialState = {
     "items": [],
     "totalCount": 17913,
     "error": null,
-    "pageCount": 100,
-    "selectedPage": 1
+    "pageCount": 50,
+    "selectedPage": 1,
+    "isFetching": false
 }
-export const allUsersReducer = (state: AllUsersType = initialState, action: addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType | toggleFollowActionType | setAllUsersActionType | setSelectedPageActionType) => {
+export const allUsersReducer = (
+    state: AllUsersType = initialState,
+    action: addPostActionType |
+        updateNewPostTextActionType |
+        updateNewMessageTextActionType |
+        sendNewMessageActionType |
+        toggleFollowActionType |
+        setAllUsersActionType |
+        setSelectedPageActionType |
+        toggleIsFetchingActionType) => {
     switch (action.type) {
         case 'TOGGLE-FOLLOW':
             let stateCopy = {
@@ -60,6 +76,9 @@ export const allUsersReducer = (state: AllUsersType = initialState, action: addP
         }
         case "SET-SELECTED-PAGE": {
             return {...state, selectedPage: action.selectedPage}
+        }
+        case "TOGGLE-IS-FETCHING": {
+            return {...state, isFetching: action.isFetching}
         }
         default:
             return state
@@ -76,6 +95,12 @@ export const setSelectedPageAC = (page: number) => {
     return {
         type: 'SET-SELECTED-PAGE',
         selectedPage: page
+    }
+}
+export const isFetchingAC = (isFetching:boolean) => {
+    return {
+        type: 'TOGGLE-IS-FETCHING',
+        isFetching
     }
 }
 

@@ -9,6 +9,7 @@ export type UsersFuncComponentPropsType = {
     setUsers: (allUsers: AllUsersType) => void
     setSelectedPage: (page:number) => void
     onPageChange: (page:number) => void
+    isFetching:boolean
 }
 
 const UsersFuncComponent = (props:UsersFuncComponentPropsType) => {
