@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {AllUsersType, setAllUsers, toggleFollow} from "../../Redux/all-users-reducer";
 import {Dispatch} from "redux";
 import {Users} from "./Users";
+import {AllUsersType, setAllUsers, toggleFollow} from "../../Redux/all-users-reducer";
 
 const mapStateToProps = (state:AppStateType) => {
 return {

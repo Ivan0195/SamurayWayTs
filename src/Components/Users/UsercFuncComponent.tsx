@@ -1,6 +1,7 @@
 import React from 'react';
 import {AllUsersType} from "../../Redux/all-users-reducer";
 import s from './Users.module.css'
+import {NavLink} from "react-router-dom";
 
 
 export type UsersFuncComponentPropsType = {
@@ -28,7 +29,11 @@ const UsersFuncComponent = (props:UsersFuncComponentPropsType) => {
             {/*  <button onClick={this.getUsers}>Get Users!</button>*/}
             {props.allUsers.items.map(m => <div key={m.id}>
             <span>
-                <div><img src={m.photos.small===null ? 'https://image.shutterstock.com/image-vector/unknown-user-icon-trendy-flat-600w-619490732.jpg' : m.photos.small} className={s.img} /></div>
+                <div>
+                    <NavLink to={'/profile/'+m.id}>
+                        <img src={m.photos.small===null ? 'https://image.shutterstock.com/image-vector/unknown-user-icon-trendy-flat-600w-619490732.jpg' : m.photos.small} className={s.img} />
+                    </NavLink>
+                </div>
                 <div><button onClick={()=>props.toggleFollow(m.id)}>{m.followed ? 'unfollow' : 'follow'}</button></div>
             </span>
                 <span>
