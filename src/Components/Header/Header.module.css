@@ -5,3 +5,19 @@
 .header img {
     width: 80px
 }
+
+.loginBlock {
+float: right;
+    color: aliceblue;
+    display: flex;
+    font-size: xx-large;
+    text-decoration: none;
+}
+
+.loginBlock a {
+    float: right;
+    color: aliceblue;
+    display: flex;
+    font-size: xx-large;
+    text-decoration: none;
+}

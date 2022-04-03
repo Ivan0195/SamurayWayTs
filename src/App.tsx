@@ -12,6 +12,7 @@ import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./Components/Users/UsersContainer";
 import {UsersCContainer} from "./Components/Users/UsersCContainer";
 import {ProfileAPI, ProfileContainer} from "./Components/ProfileComponent/ProfileInfo/ProfileContainer";
+import {HeaderAPI, HeaderContainer} from "./Components/Header/HeaderContainer";
 
 
 
@@ -19,7 +20,7 @@ function App() {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
-                <Header/>
+                <HeaderAPI/>
                 <NavBar/>
                 <div className='app-wrapper-content'>
                     <Routes>
