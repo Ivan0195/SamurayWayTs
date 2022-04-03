@@ -6,11 +6,12 @@ import {
     updateNewPostTextActionType
 } from "./store";
 import {PostPropsType} from "../Components/ProfileComponent/MyPosts/Post/Post";
+import {ProfileInfoPropsType} from "../Components/ProfileComponent/ProfileInfo/ProfileInfo";
 
 export type SetUSerProfileAT = {
     type: 'SET-USER-PROFILE'
+    profile:any
 }
-
 
 const initialState = {
     posts: [
@@ -52,6 +53,7 @@ const initialState = {
         }
     ],
     newPostText: 'it-kamasutra',
+    profile: null
 }
 
 export const postsReducer = (state: PostsType = initialState, action: addPostActionType | updateNewPostTextActionType | updateNewMessageTextActionType | sendNewMessageActionType | SetUSerProfileAT) => {
@@ -76,7 +78,7 @@ export const postsReducer = (state: PostsType = initialState, action: addPostAct
             break
         }
         case 'SET-USER-PROFILE': {
-            return  {...state, newPostText: action.newText}
+            return  {...state, profile: action.profile.profile}
             break
         }
         default:
@@ -90,5 +92,6 @@ export const updatePostTextAC = (newText: string): updateNewPostTextActionType =
     type: 'UPDATE-NEW-POST-TEXT',
     newText
 })
+export const setUsersProfile = (profile: ProfileInfoPropsType) => ({type:'SET-USER-PROFILE', profile})
 
 

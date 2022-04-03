@@ -4,12 +4,14 @@ import {messagesReducer} from "./messages-reducer";
 import {allUsersReducer} from "./all-users-reducer";
 import React, {ReactType} from "react";
 import {usersReducer} from "./users-reducer";
+import {profileReducer} from "./profile-reducer";
 
 let reducers = combineReducers({
     users: usersReducer,
     messages: messagesReducer,
     posts: postsReducer,
-    allUsers: allUsersReducer
+    allUsers: allUsersReducer,
+    profile: profileReducer
 })
 
 export let store = createStore(reducers)

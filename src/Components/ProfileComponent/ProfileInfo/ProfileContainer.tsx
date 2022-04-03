@@ -1,25 +1,23 @@
 import React from 'react';
-import {SuperMyPostsContainer} from "../MyPosts/MyPostsContainer";
-import {ProfileInfo, ProfileInfoPropsType} from "./ProfileInfo";
-import {MyPostPropsType} from "../MyPosts/MyPosts";
 import {ProfileComponent} from "../ProfileComponent";
 import axios from "axios";
 import {connect} from "react-redux";
-import App from "../../../App";
 import {AppStateType} from "../../../Redux/redux-store";
+import {setUsersProfile} from "../../../Redux/posts-reducer";
+import {ProfilePropsType} from "../../../Redux/profile-reducer";
 
 
-export class ProfileContainer extends React.Component<ProfileInfoPropsType, MyPostPropsType>{
+export class ProfileContainer extends React.Component<ProfilePropsType>{
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/ptofilr/2`).then(response => {
-
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/11440`).then(response => {
+            this.props.setUsersProfile(response.data)
     })}
 
     render() {
         return (
             <div>
-                <ProfileComponent/>
+                <ProfileComponent profile={this.props.profile}/>
             </div>
         );
     }
@@ -27,7 +25,8 @@ export class ProfileContainer extends React.Component<ProfileInfoPropsType, MyPo
 
 
 let mapStateToProps = (state:AppStateType) => ({
-    a:13
+    profile: state.profile
 })
 
-export const ProfileAPIContainer = connect(mapStateToProps, {setUsersProfile})(ProfileContainer)
+//@ts-ignore
+export const ProfileAPI = connect(mapStateToProps, {setUsersProfile})(ProfileContainer)

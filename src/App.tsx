@@ -11,7 +11,7 @@ import {Settings} from "./Components/Settings/Settings";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./Components/Users/UsersContainer";
 import {UsersCContainer} from "./Components/Users/UsersCContainer";
-import {ProfileContainer} from "./Components/ProfileComponent/ProfileInfo/ProfileContainer";
+import {ProfileAPI, ProfileContainer} from "./Components/ProfileComponent/ProfileInfo/ProfileContainer";
 
 
 
@@ -24,7 +24,7 @@ function App() {
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path='/dialogs/*' element={<DialogsContainer/>}/>
-                        <Route path='/profile/*' element={<ProfileContainer/>}/>
+                        <Route path='/profile/*' element={<ProfileAPI/>}/>
                         <Route path='/users' element={<UsersCContainer/>}/>
                         <Route path='/news' element={<News/>}/>
                         <Route path='/music' element={<Music/>}/>
