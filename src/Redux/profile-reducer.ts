@@ -10,10 +10,20 @@ export type SetUSerProfileAT = {
     profile: any
 }
 
-export type ProfilePropsType = {
+/*export type ProfilePropsType = {
     profile:ProfileType
     setUsersProfile: (profile:ProfileType) => void
+}*/
+
+export type MapStateToPropsType = {
+    profile:ProfileType
 }
+
+export type MapDispatchToPropsType = {
+    setUsersProfile: (profile:ProfileType) => void
+}
+
+export type ProfilePropsType = MapStateToPropsType & MapDispatchToPropsType
 
 export type ProfileType = {
     profile: {

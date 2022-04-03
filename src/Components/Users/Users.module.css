@@ -1,8 +1,13 @@
 .img {
-    width: 200px;
-    border-radius: 100px;
+    width: 100px;
+    border-radius: 50px;
 }
 .selected{
     color: gold;
     font-weight: bold;
+}
+
+.profileLargeAva {
+    width: 300px;
+    border-radius: 80px;
 }

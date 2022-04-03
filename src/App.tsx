@@ -24,6 +24,7 @@ function App() {
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path='/dialogs/*' element={<DialogsContainer/>}/>
+                        {/*<Route path='/profile/:userId' element={<ProfileAPI/>}/>*/}
                         <Route path='/profile/*' element={<ProfileAPI/>}/>
                         <Route path='/users' element={<UsersCContainer/>}/>
                         <Route path='/news' element={<News/>}/>
