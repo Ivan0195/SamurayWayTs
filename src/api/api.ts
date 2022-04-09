@@ -31,10 +31,22 @@ export const usersAPI = {
                 return response.data
             } )
     },
+
+
+}
+
+
+export const profileAPI = {
+    getProfile (userId:number) {
+        return instance.get(`profile/${userId}`).then(response => response.data)
+    }
+}
+
+export const authAPI = {
     authMe () {
         return  instance.get('auth/me')
             .then((response) =>{
                 return response.data
             } )
-    }
+    },
 }

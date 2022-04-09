@@ -3,11 +3,13 @@ import classes from "./Dialogs.module.css";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Messages} from "./Messages/Messages";
 import {MessagesType, UsersBodyType} from "../../Redux/store";
+import {Navigate} from "react-router-dom";
 
 export type DialogsPropsType = {
     forDialogItem: Array<UsersBodyType>
     forMessages: MessagesType
     newMessageText: string
+    isAuth: boolean
     sendMessage: ()=>void
     updateMessageText: (text:string) => void
 }
@@ -22,6 +24,8 @@ export const Dialogs = (props: DialogsPropsType) => {
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updateMessageText(e.currentTarget.value)
     }
+
+    if(props.isAuth===false) return <Navigate to={'/login'}/>
 
     return (
         <div className={classes.dialogs}>

@@ -19,7 +19,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
             <img src='https://media.fshoq.com/images/267/panorama-of-venice-267-small.jpg'/>
         </div>
         <div className={classes.descriptionBlock}>
-            <img src={props.profile.profile.photos.large} className={s.profileLargeAva}/>
+            <img src={props.profile.profile.photos.large ? props.profile.profile.photos.large : 'https://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png'} className={s.profileLargeAva}/>
         </div>
     </div>
 };

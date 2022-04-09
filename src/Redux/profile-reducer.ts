@@ -4,23 +4,21 @@ import {
     updateNewMessageTextActionType,
     updateNewPostTextActionType
 } from "./store";
+import {Dispatch} from "redux";
+import {profileAPI} from "../api/api";
 
 export type SetUSerProfileAT = {
     type: 'SET-USER-PROFILE'
     profile: any
 }
 
-/*export type ProfilePropsType = {
-    profile:ProfileType
-    setUsersProfile: (profile:ProfileType) => void
-}*/
-
 export type MapStateToPropsType = {
     profile:ProfileType
+    isAuth: boolean
 }
 
 export type MapDispatchToPropsType = {
-    setUsersProfile: (profile:ProfileType) => void
+    getProfileTC: (userId:string) => void
 }
 
 export type ProfilePropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -65,3 +63,7 @@ export const profileReducer = (state: ProfileType | {} = initialState, action: a
 }
 
 export const setUsersProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile})
+
+export const getProfileTC = (userId:number) => (dispatch:Dispatch) => {
+    profileAPI.getProfile(userId).then(data => dispatch(setUsersProfile(data)))
+}

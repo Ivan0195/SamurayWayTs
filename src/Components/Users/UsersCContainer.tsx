@@ -11,9 +11,11 @@ import {
 } from "../../Redux/all-users-reducer";
 import UsersFuncComponent from "./UsercFuncComponent";
 import Preloader from "../Common/Preloader";
+import {Navigate} from "react-router-dom";
 
 export type UsersPropsType = {
     allUsers: AllUsersType
+    isAuth: boolean
     setSelectedPage: (page: number) => void
     toggleFollowingInProgress: (isFetching: boolean, userId: number) => void
     getUsersTC: (selectedPage: number,
@@ -39,6 +41,7 @@ class UsersAPI extends React.Component <UsersPropsType> {
     }
 
     render() {
+        if(!this.props.isAuth) return <Navigate to={'/login'}/>
         return (
             <>
                 {this.props.allUsers.isFetching
@@ -60,6 +63,7 @@ class UsersAPI extends React.Component <UsersPropsType> {
 const mapStateToProps = (state: AppStateType) => {
     return {
         allUsers: state.allUsers,
+        isAuth: state.auth.isAuth
     }
 }
 

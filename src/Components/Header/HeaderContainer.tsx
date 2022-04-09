@@ -17,12 +17,6 @@ export class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 
     componentDidMount() {
         this.props.authMeTC()
-      /*  usersAPI.authMe()
-            .then(data => {
-                if (data.resultCode === 0) {
-    this.props.setAuthUserData(data.data)
-                }
-            })*/
     }
 
     render() {

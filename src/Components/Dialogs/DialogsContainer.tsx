@@ -10,6 +10,7 @@ type MapToPropsType = {
     forDialogItem: Array<UsersBodyType>,
     forMessages: MessagesType,
     newMessageText: string
+    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
@@ -22,6 +23,7 @@ let mapStateToProps=(state: AppStateType):MapToPropsType=>{
         forDialogItem: state.users.users,
         forMessages: state.messages,
         newMessageText: state.messages.newMessageText,
+        isAuth: state.auth.isAuth
     }
 }
 

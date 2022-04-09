@@ -13,6 +13,7 @@ import {UsersContainer} from "./Components/Users/UsersContainer";
 import {UsersCContainer} from "./Components/Users/UsersCContainer";
 import {ProfileAPI, ProfileContainer} from "./Components/ProfileComponent/ProfileInfo/ProfileContainer";
 import {HeaderAPI, HeaderContainer} from "./Components/Header/HeaderContainer";
+import Login from "./Components/Login/Login";
 
 
 
@@ -31,6 +32,7 @@ function App() {
                         <Route path='/news' element={<News/>}/>
                         <Route path='/music' element={<Music/>}/>
                         <Route path='/settings' element={<Settings/>}/>
+                        <Route path='/login' element={<Login/>}/>
                     </Routes>
                 </div>
 
