@@ -1,7 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {AllUsersType, isFetching, setAllUsers, setSelectedPage, toggleFollow} from "../../Redux/all-users-reducer";
+import {
+    AllUsersType,
+    isFetchingInProgress,
+    setAllUsers,
+    setSelectedPage,
+    toggleFollow, toggleFollowingInProgress
+} from "../../Redux/all-users-reducer";
 import UsersFuncComponent from "./UsercFuncComponent";
 import Preloader from "../Common/Preloader";
 import {usersAPI} from "../../api/api";
@@ -12,6 +18,7 @@ export type UsersPropsType = {
     setAllUsers: (allUsers: AllUsersType) => void
     setSelectedPage: (page: number) => void
     isFetching: (isFetching:boolean) => void
+    toggleFollowingInProgress: (isFetching:boolean, userId: number) => void
 }
 
 class UsersAPI extends React.Component <UsersPropsType> {
@@ -58,6 +65,7 @@ class UsersAPI extends React.Component <UsersPropsType> {
                     toggleFollow={this.props.toggleFollow}
                     onPageChange={this.onPageChanged}
                     isFetching={this.props.allUsers.isFetching}
+                    toggleFollowingInProgress={this.props.toggleFollowingInProgress}
                 />
 
             </>
@@ -92,7 +100,8 @@ const a = {
     toggleFollow,
     setAllUsers,
     setSelectedPage,
-    isFetching
+    isFetching: isFetchingInProgress,
+    toggleFollowingInProgress
 }
 
 export const UsersCContainer = connect(mapStateToProps, a)(UsersAPI);

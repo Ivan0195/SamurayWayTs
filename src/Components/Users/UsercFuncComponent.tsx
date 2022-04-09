@@ -11,7 +11,8 @@ export type UsersFuncComponentPropsType = {
     setUsers: (allUsers: AllUsersType) => void
     setSelectedPage: (page: number) => void
     onPageChange: (page: number) => void
-    isFetching: boolean
+    isFetching: boolean,
+    toggleFollowingInProgress: (isFollowing:boolean, userId: number) => void
 }
 
 const UsersFuncComponent = (props: UsersFuncComponentPropsType) => {
@@ -37,21 +38,24 @@ const UsersFuncComponent = (props: UsersFuncComponentPropsType) => {
                             className={s.img}/>
                     </NavLink>
                 </div>
-                <div><button onClick={() => {
-
+                <div><button disabled={props.allUsers.followingInProgress.some(id => id === m.id)} onClick={() => {
                     if (!m.followed) {
+                        props.toggleFollowingInProgress(true, m.id)
                         usersAPI.followUser(m.id)
                         .then(data => {
                             if (data.resultCode === 0) {
                                 props.toggleFollow(m.id)
                             }
+                            props.toggleFollowingInProgress(false, m.id)
                         })
                     } else {
+                        props.toggleFollowingInProgress(true, m.id)
                         usersAPI.unfollowUser(m.id)
                         .then(data => {
                             if (data.resultCode === 0) {
                                 props.toggleFollow(m.id)
                             }
+                            props.toggleFollowingInProgress(false, m.id)
                         })
                     }
                 }}>{m.followed ? 'unfollow' : 'follow'}</button></div>

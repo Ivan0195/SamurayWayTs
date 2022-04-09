@@ -23,7 +23,8 @@ export type AllUsersType = {
     "error": null | string
     "pageCount": number,
     "selectedPage": number
-    isFetching: boolean
+    isFetching: boolean,
+    followingInProgress: number[]
 }
 
 export type toggleFollowActionType = {
@@ -46,14 +47,22 @@ export type toggleIsFetchingActionType = {
     isFetching: boolean
 }
 
+export type isFollowingInProgressActionType = {
+    type: 'TOGGLE-IS-FOLLOWING-PROGRESS',
+    isFetching: boolean
+    userId: number
+}
+
 let initialState = {
     "items": [],
     "totalCount": 17913,
     "error": null,
     "pageCount": 50,
     "selectedPage": 1,
-    "isFetching": false
+    "isFetching": false,
+    "followingInProgress": []
 }
+
 export const allUsersReducer = (
     state: AllUsersType = initialState,
     action: addPostActionType |
@@ -63,7 +72,8 @@ export const allUsersReducer = (
         toggleFollowActionType |
         setAllUsersActionType |
         setSelectedPageActionType |
-        toggleIsFetchingActionType) => {
+        toggleIsFetchingActionType |
+        isFollowingInProgressActionType) => {
     switch (action.type) {
         case 'TOGGLE-FOLLOW':
             let stateCopy = {
@@ -79,6 +89,12 @@ export const allUsersReducer = (
         }
         case "TOGGLE-IS-FETCHING": {
             return {...state, isFetching: action.isFetching}
+        }
+        case "TOGGLE-IS-FOLLOWING-PROGRESS": {
+            return {
+                ...state,
+                followingInProgress: action.isFetching ? [...state.followingInProgress, action.userId] : state.followingInProgress.filter(id => id != action.userId)
+            }
         }
         default:
             return state
@@ -97,13 +113,19 @@ export const setSelectedPage = (page: number) => {
         selectedPage: page
     }
 }
-export const isFetching = (isFetching:boolean) => {
+export const isFetchingInProgress = (isFetching: boolean) => {
     return {
         type: 'TOGGLE-IS-FETCHING',
         isFetching
     }
 }
-
+export const toggleFollowingInProgress = (isFetching: boolean, userId: number) => {
+    return {
+        type: 'TOGGLE-IS-FOLLOWING-PROGRESS',
+        isFetching,
+        userId
+    }
+}
 
 
 
