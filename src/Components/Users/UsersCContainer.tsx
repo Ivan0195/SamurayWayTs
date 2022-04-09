@@ -31,7 +31,9 @@ class UsersAPI extends React.Component <UsersPropsType> {
     componentDidMount() {
         this.props.isFetching(true)
         if (this.props.allUsers.items.length === 0) {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.allUsers.selectedPage}&count=${this.props.allUsers.pageCount}`).then(response => {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.allUsers.selectedPage}&count=${this.props.allUsers.pageCount}`, {
+                withCredentials: true
+            }).then(response => {
                 this.props.isFetching(false)
                 this.props.setAllUsers(response.data)
             })
@@ -41,7 +43,9 @@ class UsersAPI extends React.Component <UsersPropsType> {
     onPageChanged = (page: number) => {
         this.props.setSelectedPage(page)
         this.props.isFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.allUsers.pageCount}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.allUsers.pageCount}`, {
+            withCredentials: true,
+        }).then(response => {
             this.props.isFetching(false)
             this.props.setAllUsers(response.data)
         })
