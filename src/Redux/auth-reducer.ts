@@ -6,6 +6,8 @@ import {
     updateNewPostTextActionType
 } from "./store";
 import {store} from "./redux-store";
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 export type AuthType = {
     id: number,
@@ -45,6 +47,15 @@ export const setAuthUserData = (data:AuthType): setUserDataAT => ({
     type: 'SET-USER-DATA',
     data
 })
+
+export const authMeTC = () => (dispatch: Dispatch) => {
+    usersAPI.authMe()
+        .then(data => {
+            if (data.resultCode === 0) {
+               dispatch(setAuthUserData(data.data))
+            }
+        })
+}
 
 
 

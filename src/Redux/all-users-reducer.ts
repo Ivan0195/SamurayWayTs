@@ -4,6 +4,8 @@ import {
     updateNewMessageTextActionType,
     updateNewPostTextActionType
 } from "./store";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 export type UserInfoType = {
     "name": string,
@@ -127,6 +129,42 @@ export const toggleFollowingInProgress = (isFetching: boolean, userId: number) =
     }
 }
 
+
+//THUNK
+
+export const getUsersTC = (selectedPage: number,
+                           pageCount: number,
+                           ) => (dispatch: Dispatch) => {
+    dispatch(isFetchingInProgress(true))
+        usersAPI.getUsers(selectedPage, pageCount)
+            .then(data => {
+                dispatch(isFetchingInProgress(false))
+                dispatch(setAllUsers(data))
+            })
+}
+
+export const followTC = (id:number) => (dispatch: Dispatch) => {
+    dispatch(toggleFollowingInProgress(true, id))
+    usersAPI.followUser(id)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(toggleFollow(id))
+            }
+            dispatch(toggleFollowingInProgress(false, id))
+        })
+}
+
+
+export const unfollowTC = (id:number) => (dispatch: Dispatch) => {
+    dispatch(toggleFollowingInProgress(true, id))
+    usersAPI.unfollowUser(id)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(toggleFollow(id))
+            }
+            dispatch(toggleFollowingInProgress(false, id))
+        })
+}
 
 
 
