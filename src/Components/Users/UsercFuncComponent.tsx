@@ -2,7 +2,7 @@ import React from 'react';
 import {AllUsersType} from "../../Redux/all-users-reducer";
 import s from './Users.module.css'
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 
 export type UsersFuncComponentPropsType = {
@@ -28,7 +28,6 @@ const UsersFuncComponent = (props: UsersFuncComponentPropsType) => {
                 {pages.map(p => <span className={props.allUsers.selectedPage === p ? s.selected : ''}
                                       onClick={() => props.onPageChange(p)}>{p + ' '}</span>)}
             </div>
-            {/*  <button onClick={this.getUsers}>Get Users!</button>*/}
             {props.allUsers.items.map(m => <div key={m.id}>
             <span>
                 <div>
@@ -41,24 +40,16 @@ const UsersFuncComponent = (props: UsersFuncComponentPropsType) => {
                 <div><button onClick={() => {
 
                     if (!m.followed) {
-                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${m.id}`, {}, {
-                            withCredentials: true,
-                            headers: {
-                                "API-KEY": '7d0fd936-d507-46da-9b85-084b957dbf02'
-                            }
-                        }).then(response => {
-                            if (response.data.resultCode === 0) {
+                        usersAPI.followUser(m.id)
+                        .then(data => {
+                            if (data.resultCode === 0) {
                                 props.toggleFollow(m.id)
                             }
                         })
                     } else {
-                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${m.id}`, {
-                            withCredentials: true,
-                            headers: {
-                                "API-KEY": '7d0fd936-d507-46da-9b85-084b957dbf02'
-                            }
-                        }).then(response => {
-                            if (response.data.resultCode === 0) {
+                        usersAPI.unfollowUser(m.id)
+                        .then(data => {
+                            if (data.resultCode === 0) {
                                 props.toggleFollow(m.id)
                             }
                         })
@@ -70,10 +61,6 @@ const UsersFuncComponent = (props: UsersFuncComponentPropsType) => {
                     <div>{m.name}</div>
                     <div>{m.status}</div>
                 </span>
-                    {/*  <span>
-                    <div>{m.location.country}</div>
-                    <div>{m.location.city}</div>
-                </span>*/}
             </span>
             </div>)}
         </div>

@@ -1,17 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {
-    AllUsersType,
-    isFetching,
-    setAllUsers,
-    setSelectedPage,
-    toggleFollow
-} from "../../Redux/all-users-reducer";
-import {Dispatch} from "redux";
-import axios from "axios";
+import {AllUsersType, isFetching, setAllUsers, setSelectedPage, toggleFollow} from "../../Redux/all-users-reducer";
 import UsersFuncComponent from "./UsercFuncComponent";
 import Preloader from "../Common/Preloader";
+import {usersAPI} from "../../api/api";
 
 export type UsersPropsType = {
     allUsers: AllUsersType
@@ -31,11 +24,10 @@ class UsersAPI extends React.Component <UsersPropsType> {
     componentDidMount() {
         this.props.isFetching(true)
         if (this.props.allUsers.items.length === 0) {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.allUsers.selectedPage}&count=${this.props.allUsers.pageCount}`, {
-                withCredentials: true
-            }).then(response => {
+          usersAPI.getUsers(this.props.allUsers.selectedPage, this.props.allUsers.pageCount)
+            .then(data => {
                 this.props.isFetching(false)
-                this.props.setAllUsers(response.data)
+                this.props.setAllUsers(data)
             })
         }
     }
@@ -43,11 +35,10 @@ class UsersAPI extends React.Component <UsersPropsType> {
     onPageChanged = (page: number) => {
         this.props.setSelectedPage(page)
         this.props.isFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.allUsers.pageCount}`, {
-            withCredentials: true,
-        }).then(response => {
+        usersAPI.getUsers(page, this.props.allUsers.pageCount)
+            .then(data => {
             this.props.isFetching(false)
-            this.props.setAllUsers(response.data)
+            this.props.setAllUsers(data)
         })
     }
 
