@@ -14,7 +14,6 @@ export type SetUSerProfileAT = {
 
 export type MapStateToPropsType = {
     profile:ProfileType
-    isAuth: boolean
 }
 
 export type MapDispatchToPropsType = {

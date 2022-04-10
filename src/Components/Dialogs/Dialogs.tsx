@@ -25,8 +25,6 @@ export const Dialogs = (props: DialogsPropsType) => {
         props.updateMessageText(e.currentTarget.value)
     }
 
-    if(props.isAuth===false) return <Navigate to={'/login'}/>
-
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>

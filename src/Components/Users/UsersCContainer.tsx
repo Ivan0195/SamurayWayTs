@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {
@@ -12,10 +12,11 @@ import {
 import UsersFuncComponent from "./UsercFuncComponent";
 import Preloader from "../Common/Preloader";
 import {Navigate} from "react-router-dom";
+import WitAuthRedirect from "../../Hoc/WitAuthRedirect";
+import {compose} from "redux";
 
 export type UsersPropsType = {
     allUsers: AllUsersType
-    isAuth: boolean
     setSelectedPage: (page: number) => void
     toggleFollowingInProgress: (isFetching: boolean, userId: number) => void
     getUsersTC: (selectedPage: number,
@@ -41,7 +42,6 @@ class UsersAPI extends React.Component <UsersPropsType> {
     }
 
     render() {
-        if(!this.props.isAuth) return <Navigate to={'/login'}/>
         return (
             <>
                 {this.props.allUsers.isFetching
@@ -63,7 +63,6 @@ class UsersAPI extends React.Component <UsersPropsType> {
 const mapStateToProps = (state: AppStateType) => {
     return {
         allUsers: state.allUsers,
-        isAuth: state.auth.isAuth
     }
 }
 
@@ -75,7 +74,8 @@ const a = {
     unfollowTC
 }
 
-export const UsersCContainer = connect(mapStateToProps, a)(UsersAPI);
+export const UsersCContainer = compose<ComponentType>(connect(mapStateToProps, a), WitAuthRedirect)(UsersAPI)
+// WitAuthRedirect(connect(mapStateToProps, a)(UsersAPI));
 
 
 /* this.props.isFetching(true)

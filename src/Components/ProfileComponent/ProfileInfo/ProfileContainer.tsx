@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {ProfileComponent} from "../ProfileComponent";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/redux-store";
-import {setUsersProfile} from "../../../Redux/posts-reducer";
 import {getProfileTC, ProfilePropsType} from "../../../Redux/profile-reducer";
-import {Navigate, useMatch} from "react-router-dom";
-import {profileAPI} from "../../../api/api";
+import {useMatch} from "react-router-dom";
+import WitAuthRedirect from "../../../Hoc/WitAuthRedirect";
+import {compose} from "redux";
 
 
 export class ProfileContainer extends React.Component<ProfilePropsType>{
@@ -19,7 +19,6 @@ export class ProfileContainer extends React.Component<ProfilePropsType>{
     }
 
     render() {
-        if(!this.props.isAuth) return <Navigate to={'/login'}/>
         return (
             <div>
                 <ProfileComponent profile={this.props.profile}/>
@@ -38,12 +37,13 @@ export const withRouter = (Component: any) =>{
 
 let mapStateToProps = (state:AppStateType) => ({
     profile: state.profile,
-    isAuth: state.auth.isAuth
 })
 
 
 
-export const ProfileAPI = connect(mapStateToProps, {getProfileTC})(withRouter(ProfileContainer))
+export const ProfileAPI = compose<ComponentType>(withRouter, connect(mapStateToProps, {getProfileTC}), WitAuthRedirect)(ProfileContainer)
+
+    /*WitAuthRedirect(connect(mapStateToProps, {getProfileTC})(withRouter(ProfileContainer)))*/
 
 
 

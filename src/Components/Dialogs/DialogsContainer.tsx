@@ -1,16 +1,16 @@
 import React from 'react';
 import {MessagesType, UsersBodyType} from "../../Redux/store";
 import {sendNewMessageAC, updateNewMessageTextAC} from "../../Redux/messages-reducer";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
+import WithAuthRedirect from "../../Hoc/WitAuthRedirect";
 
 type MapToPropsType = {
     forDialogItem: Array<UsersBodyType>,
     forMessages: MessagesType,
     newMessageText: string
-    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
@@ -22,8 +22,7 @@ let mapStateToProps=(state: AppStateType):MapToPropsType=>{
     return {
         forDialogItem: state.users.users,
         forMessages: state.messages,
-        newMessageText: state.messages.newMessageText,
-        isAuth: state.auth.isAuth
+        newMessageText: state.messages.newMessageText
     }
 }
 
@@ -34,7 +33,11 @@ let mapDispatchToProps=(dispatch:Dispatch):MapDispatchPropsType=>{
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(Dialogs)
+compose(WithAuthRedirect,connect(mapStateToProps,mapDispatchToProps))(Dialogs)
+
+export const DialogsContainer = compose<React.ComponentType>(WithAuthRedirect,connect(mapStateToProps,mapDispatchToProps))(Dialogs)
+
+/*WithAuthRedirect(connect(mapStateToProps,mapDispatchToProps)(Dialogs))*/
 
 
 
