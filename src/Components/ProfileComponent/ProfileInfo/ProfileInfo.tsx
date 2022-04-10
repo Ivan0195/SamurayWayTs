@@ -7,6 +7,8 @@ import ProfileStatus from "../../ProfileStatus/ProfileStatus";
 
 export type ProfileInfoPropsType = {
     profile: ProfileType
+    status: string
+    updateStatus: (status:string) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -21,7 +23,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
         </div>*/}
         <div className={classes.descriptionBlock}>
             <img src={props.profile.profile.photos.large ? props.profile.profile.photos.large : 'https://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png'} className={s.profileLargeAva}/>
-            <ProfileStatus status={'Hello World'}/>
+            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
         </div>
     </div>
 };
