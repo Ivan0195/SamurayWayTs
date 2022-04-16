@@ -88,9 +88,7 @@ export const profileReducer = (state: ProfileType = initialState, action: addPos
             break
         }
         case "SET-STATUS":
-            debugger
             const stateCopy = {...state, status: action.status}
-            debugger
             return stateCopy
         default:
             return state
